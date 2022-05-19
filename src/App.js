@@ -26,7 +26,7 @@ const TEZTOK_API = 'https://api.teztok.com/v1/graphql';
 const DEFAULT_LIMIT = 30;
 
 const TokensByTagsQuery = gql`
-  query TokensByTags($tags: [String], $orderBy: tokens_order_by!, $platform: String_comparison_exp!, $limit: Int!) {
+  query TokensByTags($orderBy: tokens_order_by!, $platform: String_comparison_exp!, $limit: Int!) {
     stats: tokens_aggregate(where: {rights: {_regex: "CC"}}, display_uri: { _is_null: false } }) {
       aggregate {
         count
@@ -37,39 +37,39 @@ const TokensByTagsQuery = gql`
         }
       }
     }
-    stats_teia: tokens_aggregate(where: { tags: {rights: {_regex: "CC"}}, display_uri: { _is_null: false }, platform: { _eq: "HEN" } }) {
+    stats_teia: tokens_aggregate(where: {rights: {_regex: "CC"}}, display_uri: { _is_null: false }, platform: { _eq: "HEN" } }) {
       aggregate {
         count
       }
     }
-    stats_objkt: tokens_aggregate(where: { tags: {rights: {_regex: "CC"}}, display_uri: { _is_null: false }, platform: { _eq: "OBJKT" } }) {
+    stats_objkt: tokens_aggregate(where: {rights: {_regex: "CC"}}, display_uri: { _is_null: false }, platform: { _eq: "OBJKT" } }) {
       aggregate {
         count
       }
     }
     stats_versum: tokens_aggregate(
-      where: { tags: {rights: {_regex: "CC"}}, display_uri: { _is_null: false }, platform: { _eq: "VERSUM" } }
+      where: {rights: {_regex: "CC"}}, display_uri: { _is_null: false }, platform: { _eq: "VERSUM" } }
     ) {
       aggregate {
         count
       }
     }
     stats_8bidou: tokens_aggregate(
-      where: { tags: {rights: {_regex: "CC"}}, display_uri: { _is_null: false }, platform: { _eq: "8BIDOU" } }
+      where: {rights: {_regex: "CC"}}, display_uri: { _is_null: false }, platform: { _eq: "8BIDOU" } }
     ) {
       aggregate {
         count
       }
     }
     stats_fxhash: tokens_aggregate(
-      where: { tags: {rights: {_regex: "CC"}}, display_uri: { _is_null: false }, platform: { _eq: "FXHASH" } }
+      where: {rights: {_regex: "CC"}}, display_uri: { _is_null: false }, platform: { _eq: "FXHASH" } }
     ) {
       aggregate {
         count
       }
     }
     tokens(
-      where: { tags: {rights: {_regex: "CC"}}, editions: { _gt: "0" }, display_uri: { _is_null: false }, platform: $platform }
+      where: {rights: {_regex: "CC"}}, editions: { _gt: "0" }, display_uri: { _is_null: false }, platform: $platform }
       limit: $limit
       order_by: [$orderBy]
     ) {
@@ -93,12 +93,11 @@ const TokensByTagsQuery = gql`
   }
 `;
 
-function useTokensByTags(tags, orderColumn, platform, limit) {
+function useTokensByTags(orderColumn, platform, limit) {
   const { data, error, isValidating } = useSWR(
-    ['/tokens-by-tag', ...tags, orderColumn, platform, limit],
+    ['/tokens-by-tag', ...orderColumn, platform, limit],
     () =>
       request(TEZTOK_API, TokensByTagsQuery, {
-        tags,
         platform: platform === '__ALL__' ? {} : { _eq: platform },
         limit,
         orderBy: { [orderColumn]: 'desc' },
@@ -150,7 +149,7 @@ function App() {
     eightbidouTokenCount,
     fxhashTokenCount,
     error,
-  } = useTokensByTags([TAG, `#${TAG}`], orderColumn, platform, limit);
+  } = useTokensByTags(orderColumn, platform, limit);
 
   if (error) {
     return <pre>{JSON.stringify(error, null, 2)}</pre>;
@@ -202,7 +201,7 @@ function App() {
             }}
           >
             <Typography variant="h1" component="h1" color="primary">
-              #{TAG}
+              {TAG}
             </Typography>
             <Box sx={{ mt: '0 !important' }}>
               <Stats
