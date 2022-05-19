@@ -27,7 +27,7 @@ const DEFAULT_LIMIT = 30;
 
 const TokensByTagsQuery = gql`
   query TokensByTags($tags: [String], $orderBy: tokens_order_by!, $platform: String_comparison_exp!, $limit: Int!) {
-    stats: tokens_aggregate(where: { tags: {rights: {_regex: "CC"}}, display_uri: { _is_null: false } }) {
+    stats: tokens_aggregate(where: {rights: {_regex: "CC"}}, display_uri: { _is_null: false } }) {
       aggregate {
         count
         artists_count: count(distinct: true, columns: artist_address)
