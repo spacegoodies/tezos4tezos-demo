@@ -37,11 +37,6 @@ const TokensByrightsQuery = gql`
         }
       }
     }
-    stats_teia: tokens_aggregate(where: { rights: { _regex: $rights} }, display_uri: { _is_null: false }, platform: { _regex: "HEN" } }) {
-      aggregate {
-        count
-      }
-    }
     stats_objkt: tokens_aggregate(where: { rights: { _regex: $rights} }, display_uri: { _is_null: false }, platform: { _regex: "OBJKT" } }) {
       aggregate {
         count
@@ -49,20 +44,6 @@ const TokensByrightsQuery = gql`
     }
     stats_versum: tokens_aggregate(
       where: { rights: { _regex: $rights} }, display_uri: { _is_null: false }, platform: { _regex: "VERSUM" } }
-    ) {
-      aggregate {
-        count
-      }
-    }
-    stats_8bidou: tokens_aggregate(
-      where: { rights: { _regex: $rights} }, display_uri: { _is_null: false }, platform: { _regex: "8BIDOU" } }
-    ) {
-      aggregate {
-        count
-      }
-    }
-    stats_fxhash: tokens_aggregate(
-      where: { rights: { _regex: $rights} }, display_uri: { _is_null: false }, platform: { _regex: "FXHASH" } }
     ) {
       aggregate {
         count
@@ -99,7 +80,7 @@ function useTokensByrights(rights, orderColumn, platform, limit) {
     () =>
       request(TEZTOK_API, TokensByrightsQuery, {
         rights,
-        platform: platform === '__ALL__' ? {} : { _regex: platform },
+        platform: platform === '__ALL__' ? {} : { _in: platform },
         limit,
         orderBy: { [orderColumn]: 'desc' },
       }),
@@ -262,11 +243,8 @@ function App() {
         <PlatformFilters
           filters={[
             { label: 'ALL', value: '__ALL__', count: totalTokensCount },
-            { label: 'TEIA / HEN', value: 'HEN', count: teiaTokenCount },
             { label: 'OBJKT', value: 'OBJKT', count: objktTokenCount },
             { label: 'VERSUM', value: 'VERSUM', count: versumTokenCount },
-            { label: 'FXHASH', value: 'FXHASH', count: fxhashTokenCount },
-            { label: '8BIDOU', value: '8BIDOU', count: eightbidouTokenCount },
           ]}
           onChange={(value) => {
             setLimit(DEFAULT_LIMIT);
