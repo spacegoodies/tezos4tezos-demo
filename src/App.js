@@ -202,7 +202,7 @@ function App() {
             }}
           >
             <Typography variant="h1" component="h1" color="primary">
-              #{TAG}
+              OpenNFTs
             </Typography>
             <Box sx={{ mt: '0 !important' }}>
               <Stats
