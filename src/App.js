@@ -26,7 +26,7 @@ const TEZTOK_API = 'https://api.teztok.com/v1/graphql';
 const DEFAULT_LIMIT = 30;
 
 const TokensByrightsQuery = gql`
-  query TokensByrights($rights: [String], $orderBy: tokens_order_by!, $platform: String_comparison_exp!, $limit: Int!) {
+  query TokensByrights($rights: 'CC', $orderBy: tokens_order_by!, $platform: String_comparison_exp!, $limit: Int!) {
     stats: tokens_aggregate(where: { rights: { _regex: $rights} }, display_uri: { _is_null: false } }) {
       aggregate {
         count
