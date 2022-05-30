@@ -150,7 +150,7 @@ function App() {
     eightbidouTokenCount,
     fxhashTokenCount,
     error,
-  } = useTokensByTags([TAG, `${TAG}0`, `CreativeCommons`, `creativecommons`], orderColumn, platform, limit);
+  } = useTokensByTags([TAG, `${TAG}0`, `creative commons`, `creativecommons`, `CC BY-SA 4.0`], orderColumn, platform, limit);
 
   if (error) {
     return <pre>{JSON.stringify(error, null, 2)}</pre>;
@@ -202,7 +202,7 @@ function App() {
             }}
           >
             <Typography variant="h1" component="h1" color="primary">
-              OpenNFTs
+              OpenNFTs.tez
             </Typography>
             <Box sx={{ mt: '0 !important' }}>
               <Stats
