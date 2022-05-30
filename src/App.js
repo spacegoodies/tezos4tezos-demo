@@ -37,13 +37,13 @@ const TokensByrightsQuery = gql`
         }
       }
     }
-    stats_objkt: tokens_aggregate(where: { rights: { _regex: $rights} }, display_uri: { _is_null: false }, platform: { _regex: "OBJKT" } }) {
+    stats_objkt: tokens_aggregate(where: { rights: { _regex: $rights} }, display_uri: { _is_null: false }, platform: { _in: "OBJKT" } }) {
       aggregate {
         count
       }
     }
     stats_versum: tokens_aggregate(
-      where: { rights: { _regex: $rights} }, display_uri: { _is_null: false }, platform: { _regex: "VERSUM" } }
+      where: { rights: { _regex: $rights} }, display_uri: { _is_null: false }, platform: { _in: "VERSUM" } }
     ) {
       aggregate {
         count
