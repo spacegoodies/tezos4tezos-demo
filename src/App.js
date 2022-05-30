@@ -21,7 +21,7 @@ import TokenGrid from './components/TokenGrid';
 import theme from './theme';
 import './App.css';
 
-const TAG = process.env.REACT_APP_TAG || 'CC';
+const TAG = process.env.REACT_APP_TAG || 'cc';
 const TEZTOK_API = 'https://api.teztok.com/v1/graphql';
 const DEFAULT_LIMIT = 30;
 
@@ -150,7 +150,7 @@ function App() {
     eightbidouTokenCount,
     fxhashTokenCount,
     error,
-  } = useTokensByTags([TAG, `${TAG}0`, `${TAG} BY-SA`, `Creative Commons`, `#creativecommons`], orderColumn, platform, limit);
+  } = useTokensByTags([TAG, `${TAG}0`, `CreativeCommons`, `creativecommons`], orderColumn, platform, limit);
 
   if (error) {
     return <pre>{JSON.stringify(error, null, 2)}</pre>;
