@@ -150,7 +150,7 @@ function App() {
     eightbidouTokenCount,
     fxhashTokenCount,
     error,
-  } = useTokensByTags([`creativecommons`], orderColumn, platform, limit);
+  } = useTokensByTags([`CC BY-SA 4.0`], orderColumn, platform, limit);
 
   if (error) {
     return <pre>{JSON.stringify(error, null, 2)}</pre>;
