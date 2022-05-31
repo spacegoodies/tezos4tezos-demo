@@ -150,7 +150,7 @@ function App() {
     eightbidouTokenCount,
     fxhashTokenCount,
     error,
-  } = useTokensByTags([`${TAG}-by`, `${TAG}-by-sa`, `${TAG}0`], orderColumn, platform, limit);
+  } = useTokensByTags([`${TAG}-by`, `${TAG}-by-sa`], orderColumn, platform, limit);
 
   if (error) {
     return <pre>{JSON.stringify(error, null, 2)}</pre>;
