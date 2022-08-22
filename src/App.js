@@ -27,7 +27,7 @@ const DEFAULT_LIMIT = 30;
 
 const TokensByTagsQuery = gql`
   query TokensByTags($tags: [String], $orderBy: tokens_order_by!, $platform: String_comparison_exp!, $limit: Int!) {
-    stats: tokens_aggregate(where: { tags: { tag: { _in: $tags } }, {rights: { _in: $tags }}, display_uri: { _is_null: false } }) {
+    stats: tokens_aggregate(where: { tags: { tag: { _in: $tags } }, display_uri: { _is_null: false } }) {
       aggregate {
         count
         artists_count: count(distinct: true, columns: artist_address)
@@ -37,39 +37,39 @@ const TokensByTagsQuery = gql`
         }
       }
     }
-    stats_teia: tokens_aggregate(where: { tags: { tag: { _in: $tags } }, {rights: { _in: $tags }}, display_uri: { _is_null: false }, platform: { _eq: "HEN" } }) {
+    stats_teia: tokens_aggregate(where: { tags: { tag: { _in: $tags } }, display_uri: { _is_null: false }, platform: { _eq: "HEN" } }) {
       aggregate {
         count
       }
     }
-    stats_objkt: tokens_aggregate(where: { tags: { tag: { _in: $tags } }, {rights: { _in: $tags }}, display_uri: { _is_null: false }, platform: { _eq: "OBJKT" } }) {
+    stats_objkt: tokens_aggregate(where: { tags: { tag: { _in: $tags } }, display_uri: { _is_null: false }, platform: { _eq: "OBJKT" } }) {
       aggregate {
         count
       }
     }
     stats_versum: tokens_aggregate(
-      where: { tags: { tag: { _in: $tags } }, {rights: { _in: $tags }}, display_uri: { _is_null: false }, platform: { _eq: "VERSUM" } }
+      where: { tags: { tag: { _in: $tags } }, display_uri: { _is_null: false }, platform: { _eq: "VERSUM" } }
     ) {
       aggregate {
         count
       }
     }
     stats_8bidou: tokens_aggregate(
-      where: { tags: { tag: { _in: $tags } }, {rights: { _in: $tags }}, display_uri: { _is_null: false }, platform: { _eq: "8BIDOU" } }
+      where: { tags: { tag: { _in: $tags } }, display_uri: { _is_null: false }, platform: { _eq: "8BIDOU" } }
     ) {
       aggregate {
         count
       }
     }
     stats_fxhash: tokens_aggregate(
-      where: { tags: { tag: { _in: $tags } }, {rights: { _in: $tags }}, display_uri: { _is_null: false }, platform: { _eq: "FXHASH" } }
+      where: { tags: { tag: { _in: $tags } }, display_uri: { _is_null: false }, platform: { _eq: "FXHASH" } }
     ) {
       aggregate {
         count
       }
     }
     tokens(
-      where: { tags: { tag: { _in: $tags } }, {rights: { _in: $tags }}, editions: { _gt: "0" }, display_uri: { _is_null: false }, platform: $platform }
+      where: { tags: { tag: { _in: $tags } }, editions: { _gt: "0" }, display_uri: { _is_null: false }, platform: $platform }
       limit: $limit
       order_by: [$orderBy]
     ) {
